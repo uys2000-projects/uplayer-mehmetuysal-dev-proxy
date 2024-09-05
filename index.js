@@ -41,7 +41,8 @@ app.get("/get", async (req, res) => {
   const result = await axios.get(url);
   const playlist = parser.parse(result.data);
   const groups = [...new Set(playlist.items.map((i) => i.group.title))];
-
+  console.log(`Started for: ${req.query.id}\n ${req.query.url}`);
+  console.log(`Total ${playlist.items.length} Item Waiting`);
   for (let i = 0; i < groups.length; i++) {
     const item = { id: i, data: groups[i], timestamp: Date.now() };
     const docRef = db.doc(`user/${id}/group/${i}`);
