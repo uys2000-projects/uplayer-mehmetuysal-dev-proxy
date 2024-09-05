@@ -41,18 +41,19 @@ app.get("/get", async (req, res) => {
   const result = await axios.get(url);
   const playlist = parser.parse(result.data);
 
-  for (let i = 0; i < playlist.items.length; i++) {
-    const item = { id: i, data: playlist.items[i], timestamp: Date.now() };
-    const docRef = db.doc(`user/${id}/channel/${i}`);
-    docRef.set(item);
-  }
-
   const groups = [...new Set(playlist.items.map((i) => i.group.title))];
   for (let i = 0; i < groups.length; i++) {
     const item = { id: i, data: groups[i], timestamp: Date.now() };
     const docRef = db.doc(`user/${id}/group/${i}`);
     docRef.set(item);
   }
+
+  for (let i = 0; i < playlist.items.length; i++) {
+    const item = { id: i, data: playlist.items[i], timestamp: Date.now() };
+    const docRef = db.doc(`user/${id}/channel/${i}`);
+    docRef.set(item);
+  }
+
   return res.send({ success: true });
 });
 
