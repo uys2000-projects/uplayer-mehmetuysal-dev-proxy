@@ -1,11 +1,11 @@
-FROM node
+FROM node:alpine
 
-WORKDIR /express-docker
+WORKDIR /app
 
 COPY . .
 
-RUN npm install
+RUN yarn
 
-CMD [ "node", "index.js" ]
+CMD [ "yarn", "start" ]
 
 EXPOSE 3000
