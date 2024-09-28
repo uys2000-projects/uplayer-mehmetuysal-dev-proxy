@@ -54,7 +54,7 @@ app.get("/get", async (req, res) => {
   for (let i = 0; i < playlist.items.length; i++) {
     const item = { id: i, data: playlist.items[i], timestamp: Date.now() };
     const docRef = db.doc(`user/${id}/channel/${i}`);
-    await docRef.set(item);
+    docRef.set(item);
   }
 });
 
